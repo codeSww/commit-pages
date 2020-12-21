@@ -56,17 +56,3 @@ function publish(config,callback){
 module.exports = {
     publish
 }
-
-publish({
-    basePath:'build2',//本地路径
-    fileName:'index.html',//获取文件名
-    registry:'git@git.jd.com:consumer-healthcare/jdh-healthcare-client.git',//要上传的地址
-    branch:'dev',//要上传的分支
-    originFilePath:'source/bjdpe',//文件夹路径
-},function(err){
-    if(!err){
-        console.log('html资源上传成功');
-    }else{
-        console.log('错误信息：',err.message);
-    }
-});
