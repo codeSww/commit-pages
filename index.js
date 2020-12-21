@@ -19,11 +19,11 @@ const defalutConfig = {
  * 3.git 提交
  * @param {*} config 
  */
-function publish(config){
+function publish(config,callback){
     const copyFileName = `copy${new Date().getTime()}`;
     const opts = Object.assign({},defalutConfig,config || {});
     if(!util.isDirExist(opts.basePath,opts.fileName)){
-        console.log(`未能找到${opts.fileName?`${opts.basePath}/${opts.fileName}`:opts.basePath}`);
+        callback(new Error(`未能找到${opts.fileName?`${opts.basePath}/${opts.fileName}`:opts.basePath}`));
         return;
     };
     Git.clone(opts,copyFileName).then(git =>{
@@ -35,7 +35,7 @@ function publish(config){
             }
             return git;
         } catch (err) {
-            console.error(err)
+            callback(err)
         }
     }).then(git=>{
         return git.add('.');
@@ -46,10 +46,10 @@ function publish(config){
     }).then(
         () => {
             util.deleteFolderRecursive(copyFileName)
-            console.log('finished page commit!');
+            callback()
         },
         error => {
-            console.log(`there are some exception happened : ${error}`);
+            callback(error)
         }
     )
 }
@@ -57,10 +57,16 @@ module.exports = {
     publish
 }
 
-// publish({
-//     basePath:'build',//本地路径
-//     fileName:'index.html',//获取文件名
-//     registry:'git@git.jd.com:consumer-healthcare/jdh-healthcare-client.git',//要上传的地址
-//     branch:'dev',//要上传的分支
-//     originFilePath:'source/bjdpe',//文件夹路径
-// });
+publish({
+    basePath:'build2',//本地路径
+    fileName:'index.html',//获取文件名
+    registry:'git@git.jd.com:consumer-healthcare/jdh-healthcare-client.git',//要上传的地址
+    branch:'dev',//要上传的分支
+    originFilePath:'source/bjdpe',//文件夹路径
+},function(err){
+    if(!err){
+        console.log('html资源上传成功');
+    }else{
+        console.log('错误信息：',err.message);
+    }
+});
