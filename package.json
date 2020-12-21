@@ -1,0 +1,19 @@
+{
+  "name": "commit-pages",
+  "version": "1.0.0",
+  "description": "当前文件夹下的指定文件或目录移动至另外一个git下",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "不同git",
+    "commit-pages"
+  ],
+  "author": "codeww",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "fs-extra": "^9.0.1"
+  }
+}
