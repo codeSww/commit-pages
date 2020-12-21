@@ -46,6 +46,7 @@ function publish(config,callback){
             callback()
         },
         error => {
+            util.deleteFolderRecursive(copyFileName)
             callback(error)
         }
     )
@@ -53,20 +54,3 @@ function publish(config,callback){
 module.exports = {
     publish
 }
-
-// publish(
-//     {
-//       basePath: 'build', //本地路径
-//       fileName: 'index.html', //获取文件名
-//       registry: 'git@git.jd.com:consumer-healthcare/jdh-healthcare-client.git', //要上传的地址
-//       branch: 'master', //要上传的分支
-//       originFilePath: `source/test`, //文件夹路径
-//     },
-//     function (err) {
-//       if (!err) {
-//         console.log(`html文件已上传至 source/test 下！`);
-//       } else {
-//         console.log('执行错误：', err.message);
-//       }
-//     }
-//   );
