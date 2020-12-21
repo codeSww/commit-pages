@@ -1,5 +1,5 @@
 {
-  "name": "commit-pages",
+  "name": "@jdcfe/commit-pages",
   "version": "1.0.0",
   "description": "当前文件夹下的指定文件或目录移动至另外一个git下",
   "main": "index.js",

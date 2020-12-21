@@ -57,10 +57,10 @@ module.exports = {
     publish
 }
 
-publish({
-    basePath:'build',//本地路径
-    fileName:'index.html',//获取文件名
-    registry:'git@git.jd.com:consumer-healthcare/jdh-healthcare-client.git',//要上传的地址
-    branch:'dev',//要上传的分支
-    originFilePath:'source/bjdpe',//文件夹路径
-});
+// publish({
+//     basePath:'build',//本地路径
+//     fileName:'index.html',//获取文件名
+//     registry:'git@git.jd.com:consumer-healthcare/jdh-healthcare-client.git',//要上传的地址
+//     branch:'dev',//要上传的分支
+//     originFilePath:'source/bjdpe',//文件夹路径
+// });
