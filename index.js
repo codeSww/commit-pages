@@ -1,5 +1,4 @@
 
-const fs = require('fs-extra');
 const Git = require('./lib/git');
 const util = require('./lib/util');
 const defalutConfig = {
@@ -13,6 +12,7 @@ const defalutConfig = {
     remote: 'origin',
     git: 'git'
 }
+
 /**
  * 1.获取远程git路径下载至本地
  * 2.将本地文件放至指定路径下
@@ -27,16 +27,13 @@ function publish(config,callback){
         return;
     };
     Git.clone(opts,copyFileName).then(git =>{
-        try {
-            if(opts.fileName){
-                fs.copyFileSync(`${opts.basePath}/${opts.fileName}`, `${copyFileName}/${opts.originFilePath}/${opts.fileName}`)
-            }else{
-                fs.copySync(opts.basePath, `${copyFileName}/${opts.originFilePath}`)
-            }
-            return git;
-        } catch (err) {
-            callback(err)
-        }
+        util.copyFile({
+            basePath:opts.basePath,
+            fileName:opts.fileName,
+            originFilePath:opts.originFilePath,
+            copyFileName
+        },callback);
+        return git;
     }).then(git=>{
         return git.add('.');
     }).then(git => {
@@ -56,3 +53,20 @@ function publish(config,callback){
 module.exports = {
     publish
 }
+
+// publish(
+//     {
+//       basePath: 'build', //本地路径
+//       fileName: 'index.html', //获取文件名
+//       registry: 'git@git.jd.com:consumer-healthcare/jdh-healthcare-client.git', //要上传的地址
+//       branch: 'master', //要上传的分支
+//       originFilePath: `source/test`, //文件夹路径
+//     },
+//     function (err) {
+//       if (!err) {
+//         console.log(`html文件已上传至 source/test 下！`);
+//       } else {
+//         console.log('执行错误：', err.message);
+//       }
+//     }
+//   );
